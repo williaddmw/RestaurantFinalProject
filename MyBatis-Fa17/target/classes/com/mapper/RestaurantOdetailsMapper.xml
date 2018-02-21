@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.RestaurantOdetailsMapper">
+  <resultMap id="BaseResultMap" type="com.domain.RestaurantOdetails">
+    <id column="ONO" jdbcType="DECIMAL" property="ono" />
+    <id column="FOODNAME" jdbcType="VARCHAR" property="foodname" />
+    <id column="RESTID" jdbcType="DECIMAL" property="restid" />
+    <result column="QTY" jdbcType="DECIMAL" property="qty" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ONO, FOODNAME, RESTID, QTY
+  </sql>
+  <select id="selectByExample" parameterType="com.domain.RestaurantOdetailsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from RESTAURANT_ODETAILS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.domain.RestaurantOdetailsKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from RESTAURANT_ODETAILS
+    where ONO = #{ono,jdbcType=DECIMAL}
+      and FOODNAME = #{foodname,jdbcType=VARCHAR}
+      and RESTID = #{restid,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.domain.RestaurantOdetailsKey">
+    delete from RESTAURANT_ODETAILS
+    where ONO = #{ono,jdbcType=DECIMAL}
+      and FOODNAME = #{foodname,jdbcType=VARCHAR}
+      and RESTID = #{restid,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.domain.RestaurantOdetails">
+    insert into RESTAURANT_ODETAILS (ONO, FOODNAME, RESTID, 
+      QTY)
+    values (#{ono,jdbcType=DECIMAL}, #{foodname,jdbcType=VARCHAR}, #{restid,jdbcType=DECIMAL}, 
+      #{qty,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.domain.RestaurantOdetails">
+    insert into RESTAURANT_ODETAILS
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ono != null">
+        ONO,
+      </if>
+      <if test="foodname != null">
+        FOODNAME,
+      </if>
+      <if test="restid != null">
+        RESTID,
+      </if>
+      <if test="qty != null">
+        QTY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ono != null">
+        #{ono,jdbcType=DECIMAL},
+      </if>
+      <if test="foodname != null">
+        #{foodname,jdbcType=VARCHAR},
+      </if>
+      <if test="restid != null">
+        #{restid,jdbcType=DECIMAL},
+      </if>
+      <if test="qty != null">
+        #{qty,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.domain.RestaurantOdetails">
+    update RESTAURANT_ODETAILS
+    <set>
+      <if test="qty != null">
+        QTY = #{qty,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ONO = #{ono,jdbcType=DECIMAL}
+      and FOODNAME = #{foodname,jdbcType=VARCHAR}
+      and RESTID = #{restid,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.domain.RestaurantOdetails">
+    update RESTAURANT_ODETAILS
+    set QTY = #{qty,jdbcType=DECIMAL}
+    where ONO = #{ono,jdbcType=DECIMAL}
+      and FOODNAME = #{foodname,jdbcType=VARCHAR}
+      and RESTID = #{restid,jdbcType=DECIMAL}
+  </update>
+</mapper>

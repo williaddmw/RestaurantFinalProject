@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.RestaurantMapper">
+  <resultMap id="BaseResultMap" type="com.domain.Restaurant">
+    <id column="RESTID" jdbcType="DECIMAL" property="restid" />
+    <result column="RNAME" jdbcType="VARCHAR" property="rname" />
+    <result column="PHONE" jdbcType="VARCHAR" property="phone" />
+    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
+    <result column="HOURS" jdbcType="VARCHAR" property="hours" />
+    <result column="DININGTYPE" jdbcType="VARCHAR" property="diningtype" />
+    <result column="STREETNO" jdbcType="DECIMAL" property="streetno" />
+    <result column="STREETNAME" jdbcType="VARCHAR" property="streetname" />
+    <result column="CITY" jdbcType="VARCHAR" property="city" />
+    <result column="STATE" jdbcType="VARCHAR" property="state" />
+    <result column="ZIP" jdbcType="DECIMAL" property="zip" />
+    <result column="PRICERANGE" jdbcType="VARCHAR" property="pricerange" />
+    <result column="DELIVERYFLAG" jdbcType="CHAR" property="deliveryflag" />
+    <result column="OUTDOORSEATINGFLAG" jdbcType="CHAR" property="outdoorseatingflag" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  
+  <sql id="Base_Column_List">
+    RESTID, RNAME, PHONE, EMAIL, HOURS, DININGTYPE, STREETNO, STREETNAME, CITY, STATE, 
+    ZIP, PRICERANGE, DELIVERYFLAG, OUTDOORSEATINGFLAG
+  </sql>
+  
+  <select id="selectByExample" parameterType="com.domain.RestaurantExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from RESTAURANT
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Short" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from RESTAURANT
+    where RESTID = #{restid,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
+    delete from RESTAURANT
+    where RESTID = #{restid,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.domain.Restaurant">
+    insert into RESTAURANT (RESTID, RNAME, PHONE, 
+      EMAIL, HOURS, DININGTYPE, 
+      STREETNO, STREETNAME, CITY, 
+      STATE, ZIP, PRICERANGE, 
+      DELIVERYFLAG, OUTDOORSEATINGFLAG)
+      values (#{restid,jdbcType=DECIMAL}, #{rname,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{hours,jdbcType=VARCHAR}, #{diningtype,jdbcType=VARCHAR}, 
+      #{streetno,jdbcType=DECIMAL}, #{streetname,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+      #{state,jdbcType=VARCHAR}, #{zip,jdbcType=DECIMAL}, #{pricerange,jdbcType=VARCHAR}, 
+      #{deliveryflag,jdbcType=CHAR}, #{outdoorseatingflag,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.domain.Restaurant">
+    insert into RESTAURANT
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="restid != null">
+        RESTID,
+      </if>
+      <if test="rname != null">
+        RNAME,
+      </if>
+      <if test="phone != null">
+        PHONE,
+      </if>
+      <if test="email != null">
+        EMAIL,
+      </if>
+      <if test="hours != null">
+        HOURS,
+      </if>
+      <if test="diningtype != null">
+        DININGTYPE,
+      </if>
+      <if test="streetno != null">
+        STREETNO,
+      </if>
+      <if test="streetname != null">
+        STREETNAME,
+      </if>
+      <if test="city != null">
+        CITY,
+      </if>
+      <if test="state != null">
+        STATE,
+      </if>
+      <if test="zip != null">
+        ZIP,
+      </if>
+      <if test="pricerange != null">
+        PRICERANGE,
+      </if>
+      <if test="deliveryflag != null">
+        DELIVERYFLAG,
+      </if>
+      <if test="outdoorseatingflag != null">
+        OUTDOORSEATINGFLAG,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="restid != null">
+        #{restid,jdbcType=DECIMAL},
+      </if>
+      <if test="rname != null">
+        #{rname,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="hours != null">
+        #{hours,jdbcType=VARCHAR},
+      </if>
+      <if test="diningtype != null">
+        #{diningtype,jdbcType=VARCHAR},
+      </if>
+      <if test="streetno != null">
+        #{streetno,jdbcType=DECIMAL},
+      </if>
+      <if test="streetname != null">
+        #{streetname,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="zip != null">
+        #{zip,jdbcType=DECIMAL},
+      </if>
+      <if test="pricerange != null">
+        #{pricerange,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryflag != null">
+        #{deliveryflag,jdbcType=CHAR},
+      </if>
+      <if test="outdoorseatingflag != null">
+        #{outdoorseatingflag,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.domain.Restaurant">
+    update RESTAURANT
+    <set>
+      <if test="rname != null">
+        RNAME = #{rname,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        PHONE = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="hours != null">
+        HOURS = #{hours,jdbcType=VARCHAR},
+      </if>
+      <if test="diningtype != null">
+        DININGTYPE = #{diningtype,jdbcType=VARCHAR},
+      </if>
+      <if test="streetno != null">
+        STREETNO = #{streetno,jdbcType=DECIMAL},
+      </if>
+      <if test="streetname != null">
+        STREETNAME = #{streetname,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        CITY = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        STATE = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="zip != null">
+        ZIP = #{zip,jdbcType=DECIMAL},
+      </if>
+      <if test="pricerange != null">
+        PRICERANGE = #{pricerange,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryflag != null">
+        DELIVERYFLAG = #{deliveryflag,jdbcType=CHAR},
+      </if>
+      <if test="outdoorseatingflag != null">
+        OUTDOORSEATINGFLAG = #{outdoorseatingflag,jdbcType=CHAR},
+      </if>
+    </set>
+    where RESTID = #{restid,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.domain.Restaurant">
+    update RESTAURANT
+    set RNAME = #{rname,jdbcType=VARCHAR},
+      PHONE = #{phone,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      HOURS = #{hours,jdbcType=VARCHAR},
+      DININGTYPE = #{diningtype,jdbcType=VARCHAR},
+      STREETNO = #{streetno,jdbcType=DECIMAL},
+      STREETNAME = #{streetname,jdbcType=VARCHAR},
+      CITY = #{city,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=VARCHAR},
+      ZIP = #{zip,jdbcType=DECIMAL},
+      PRICERANGE = #{pricerange,jdbcType=VARCHAR},
+      DELIVERYFLAG = #{deliveryflag,jdbcType=CHAR},
+      OUTDOORSEATINGFLAG = #{outdoorseatingflag,jdbcType=CHAR}
+    where RESTID = #{restid,jdbcType=DECIMAL}
+  </update>
+</mapper>

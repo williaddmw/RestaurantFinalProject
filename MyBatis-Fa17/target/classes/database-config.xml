@@ -5,19 +5,38 @@
 <configuration>
 <typeAliases>
   <typeAlias alias="Employee" type="com.domain.Employee"/>
+  <typeAlias alias="Reataurant" type="com.domain.Restaurant"/>  
+  <typeAlias alias="CustReview" type="com.domain.CustReview"/>   
+  <typeAlias alias="FoodItem" type="com.domain.FoodItem"/>
+  <typeAlias alias="Menu" type="com.domain.Menu"/>  
+  <typeAlias alias="RestaurantCustomer" type="com.domain.RestaurantCustomer"/>
+  <typeAlias alias="RestaurantOrder" type="com.domain.RestaurantOrder"/> 
+  <typeAlias alias="RestaurantOdetails" type="com.domain.RestaurantOdetails"/>
+  <typeAlias alias="RestCuisineKey" type="com.domain.RestCuisineKey"/>
+  <typeAlias alias="Sequence" type="com.domain.Sequence"/>
 </typeAliases>
 	<environments default="development">
 		<environment id="development">
 			<transactionManager type="JDBC" />
 			<dataSource type="POOLED">
-				<property name="driver" value="oracle.jdbc.driver.OracleDriver" />
+				<property name="driver" value="oracle.jdbc.driver.OracleDriver" />			
 				<property name="url" value="jdbc:oracle:thin:@dataserv.mscs.mu.edu:1521:orcl" />
-				<property name="username" value="dbcourse" />
-				<property name="password" value="dbcourse" />
+				<property name="username" value="williams" />
+				<property name="password" value="002541399" />
 			</dataSource>
 		</environment>
 	</environments>
 	<mappers>
-		<mapper resource="com/mapper/CompanyMapper.xml" />
+    	<mapper resource="com/mapper/CompanyMapper.xml" />
+		<mapper resource="com/mapper/RestaurantMapper.xml" />	
+		<mapper resource="com/mapper/CustReviewMapper.xml" />
+		<mapper resource="com/mapper/FoodItemMapper.xml" />
+		<mapper resource="com/mapper/MenuMapper.xml" />
+		<mapper resource="com/mapper/RestaurantCustomerMapper.xml" />
+		<mapper resource="com/mapper/RestaurantOdetailsMapper.xml" />
+		<mapper resource="com/mapper/RestaurantOrderMapper.xml" />
+		<mapper resource="com/mapper/RestCuisineMapper.xml" />
+		<mapper resource="com/mapper/SequenceMapper.xml" />
+
 	</mappers>
 </configuration>

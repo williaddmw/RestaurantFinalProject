@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.CustReviewMapper">
+  <resultMap id="BaseResultMap" type="com.domain.CustReview">
+    <id column="REVIEWID" jdbcType="DECIMAL" property="reviewid" />
+    <result column="CUSTEMAIL" jdbcType="VARCHAR" property="custemail" />
+    <result column="RESTID" jdbcType="DECIMAL" property="restid" />
+    <result column="REVIEWTITLE" jdbcType="VARCHAR" property="reviewtitle" />
+    <result column="REVIEWDESCR" jdbcType="VARCHAR" property="reviewdescr" />
+    <result column="REVIEWDATE" jdbcType="TIMESTAMP" property="reviewdate" />
+    <result column="RATING" jdbcType="DECIMAL" property="rating" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    REVIEWID, CUSTEMAIL, RESTID, REVIEWTITLE, REVIEWDESCR, REVIEWDATE, RATING
+  </sql>
+  <select id="selectByExample" parameterType="com.domain.CustReviewExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from CUST_REVIEW
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Short" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from CUST_REVIEW
+    where REVIEWID = #{reviewid,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
+    delete from CUST_REVIEW
+    where REVIEWID = #{reviewid,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.domain.CustReview">
+    insert into CUST_REVIEW (REVIEWID, CUSTEMAIL, RESTID, 
+      REVIEWTITLE, REVIEWDESCR, REVIEWDATE, 
+      RATING)
+    values (#{reviewid,jdbcType=DECIMAL}, #{custemail,jdbcType=VARCHAR}, #{restid,jdbcType=DECIMAL}, 
+      #{reviewtitle,jdbcType=VARCHAR}, #{reviewdescr,jdbcType=VARCHAR}, #{reviewdate,jdbcType=TIMESTAMP}, 
+      #{rating,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.domain.CustReview">
+    insert into CUST_REVIEW
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="reviewid != null">
+        REVIEWID,
+      </if>
+      <if test="custemail != null">
+        CUSTEMAIL,
+      </if>
+      <if test="restid != null">
+        RESTID,
+      </if>
+      <if test="reviewtitle != null">
+        REVIEWTITLE,
+      </if>
+      <if test="reviewdescr != null">
+        REVIEWDESCR,
+      </if>
+      <if test="reviewdate != null">
+        REVIEWDATE,
+      </if>
+      <if test="rating != null">
+        RATING,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="reviewid != null">
+        #{reviewid,jdbcType=DECIMAL},
+      </if>
+      <if test="custemail != null">
+        #{custemail,jdbcType=VARCHAR},
+      </if>
+      <if test="restid != null">
+        #{restid,jdbcType=DECIMAL},
+      </if>
+      <if test="reviewtitle != null">
+        #{reviewtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="reviewdescr != null">
+        #{reviewdescr,jdbcType=VARCHAR},
+      </if>
+      <if test="reviewdate != null">
+        #{reviewdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rating != null">
+        #{rating,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.domain.CustReview">
+    update CUST_REVIEW
+    <set>
+      <if test="custemail != null">
+        CUSTEMAIL = #{custemail,jdbcType=VARCHAR},
+      </if>
+      <if test="restid != null">
+        RESTID = #{restid,jdbcType=DECIMAL},
+      </if>
+      <if test="reviewtitle != null">
+        REVIEWTITLE = #{reviewtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="reviewdescr != null">
+        REVIEWDESCR = #{reviewdescr,jdbcType=VARCHAR},
+      </if>
+      <if test="reviewdate != null">
+        REVIEWDATE = #{reviewdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rating != null">
+        RATING = #{rating,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where REVIEWID = #{reviewid,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.domain.CustReview">
+    update CUST_REVIEW
+    set CUSTEMAIL = #{custemail,jdbcType=VARCHAR},
+      RESTID = #{restid,jdbcType=DECIMAL},
+      REVIEWTITLE = #{reviewtitle,jdbcType=VARCHAR},
+      REVIEWDESCR = #{reviewdescr,jdbcType=VARCHAR},
+      REVIEWDATE = #{reviewdate,jdbcType=TIMESTAMP},
+      RATING = #{rating,jdbcType=DECIMAL}
+    where REVIEWID = #{reviewid,jdbcType=DECIMAL}
+  </update>
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.SequenceMapper">
+	
+	<resultMap id="SequenceResult" type="Sequence">
+		<id property="sequencenumber" column="sequencenumber" />
+	</resultMap>
+
+	<select id="nextRestaurant" resultMap="SequenceResult">
+		SELECT Restaurant_RestId_Seq.nextval as sequencenumber from dual
+	</select>
+	
+	<select id="nextOrder" resultMap="SequenceResult">
+		SELECT Restaurant_Order_Ono.nextval as sequencenumber from dual
+	</select>
+	
+    <select id="nextReview" resultMap="SequenceResult">
+		SELECT Customer_ReviewId_Seq.nextval as sequencenumber from dual
+	</select>
+</mapper>

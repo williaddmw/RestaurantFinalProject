@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.RestaurantOrderMapper">
+  <resultMap id="BaseResultMap" type="com.domain.RestaurantOrder">
+    <id column="ONO" jdbcType="DECIMAL" property="ono" />
+    <result column="ORDERDATE" jdbcType="TIMESTAMP" property="orderdate" />
+    <result column="CUSTEMAIL" jdbcType="VARCHAR" property="custemail" />
+    <result column="ORDERDINEINFLAG" jdbcType="CHAR" property="orderdineinflag" />
+    <result column="ORDERDELIVERYFLAG" jdbcType="CHAR" property="orderdeliveryflag" />
+    <result column="ORDERPICKUPFLAG" jdbcType="CHAR" property="orderpickupflag" />
+    <result column="ORDERPICKUPDATE" jdbcType="TIMESTAMP" property="orderpickupdate" />
+    <result column="ORDERDELIVERYDATE" jdbcType="TIMESTAMP" property="orderdeliverydate" />
+    <result column="ORDERDINEINRECEIVEDDATE" jdbcType="TIMESTAMP" property="orderdineinreceiveddate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ONO, ORDERDATE, CUSTEMAIL, ORDERDINEINFLAG, ORDERDELIVERYFLAG, ORDERPICKUPFLAG, ORDERPICKUPDATE, 
+    ORDERDELIVERYDATE, ORDERDINEINRECEIVEDDATE
+  </sql>
+  <select id="selectByExample" parameterType="com.domain.RestaurantOrderExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from RESTAURANT_ORDER
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Short" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from RESTAURANT_ORDER
+    where ONO = #{ono,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
+    delete from RESTAURANT_ORDER
+    where ONO = #{ono,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.domain.RestaurantOrder">
+    insert into RESTAURANT_ORDER (ONO, ORDERDATE, CUSTEMAIL, 
+      ORDERDINEINFLAG, ORDERDELIVERYFLAG, ORDERPICKUPFLAG, 
+      ORDERPICKUPDATE, ORDERDELIVERYDATE, 
+      ORDERDINEINRECEIVEDDATE)
+    values (#{ono,jdbcType=DECIMAL}, #{orderdate,jdbcType=TIMESTAMP}, #{custemail,jdbcType=VARCHAR}, 
+      #{orderdineinflag,jdbcType=CHAR}, #{orderdeliveryflag,jdbcType=CHAR}, #{orderpickupflag,jdbcType=CHAR}, 
+      #{orderpickupdate,jdbcType=TIMESTAMP}, #{orderdeliverydate,jdbcType=TIMESTAMP}, 
+      #{orderdineinreceiveddate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.domain.RestaurantOrder">
+    insert into RESTAURANT_ORDER
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ono != null">
+        ONO,
+      </if>
+      <if test="orderdate != null">
+        ORDERDATE,
+      </if>
+      <if test="custemail != null">
+        CUSTEMAIL,
+      </if>
+      <if test="orderdineinflag != null">
+        ORDERDINEINFLAG,
+      </if>
+      <if test="orderdeliveryflag != null">
+        ORDERDELIVERYFLAG,
+      </if>
+      <if test="orderpickupflag != null">
+        ORDERPICKUPFLAG,
+      </if>
+      <if test="orderpickupdate != null">
+        ORDERPICKUPDATE,
+      </if>
+      <if test="orderdeliverydate != null">
+        ORDERDELIVERYDATE,
+      </if>
+      <if test="orderdineinreceiveddate != null">
+        ORDERDINEINRECEIVEDDATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ono != null">
+        #{ono,jdbcType=DECIMAL},
+      </if>
+      <if test="orderdate != null">
+        #{orderdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="custemail != null">
+        #{custemail,jdbcType=VARCHAR},
+      </if>
+      <if test="orderdineinflag != null">
+        #{orderdineinflag,jdbcType=CHAR},
+      </if>
+      <if test="orderdeliveryflag != null">
+        #{orderdeliveryflag,jdbcType=CHAR},
+      </if>
+      <if test="orderpickupflag != null">
+        #{orderpickupflag,jdbcType=CHAR},
+      </if>
+      <if test="orderpickupdate != null">
+        #{orderpickupdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderdeliverydate != null">
+        #{orderdeliverydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderdineinreceiveddate != null">
+        #{orderdineinreceiveddate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.domain.RestaurantOrder">
+    update RESTAURANT_ORDER
+    <set>
+      <if test="orderdate != null">
+        ORDERDATE = #{orderdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="custemail != null">
+        CUSTEMAIL = #{custemail,jdbcType=VARCHAR},
+      </if>
+      <if test="orderdineinflag != null">
+        ORDERDINEINFLAG = #{orderdineinflag,jdbcType=CHAR},
+      </if>
+      <if test="orderdeliveryflag != null">
+        ORDERDELIVERYFLAG = #{orderdeliveryflag,jdbcType=CHAR},
+      </if>
+      <if test="orderpickupflag != null">
+        ORDERPICKUPFLAG = #{orderpickupflag,jdbcType=CHAR},
+      </if>
+      <if test="orderpickupdate != null">
+        ORDERPICKUPDATE = #{orderpickupdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderdeliverydate != null">
+        ORDERDELIVERYDATE = #{orderdeliverydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderdineinreceiveddate != null">
+        ORDERDINEINRECEIVEDDATE = #{orderdineinreceiveddate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ONO = #{ono,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.domain.RestaurantOrder">
+    update RESTAURANT_ORDER
+    set ORDERDATE = #{orderdate,jdbcType=TIMESTAMP},
+      CUSTEMAIL = #{custemail,jdbcType=VARCHAR},
+      ORDERDINEINFLAG = #{orderdineinflag,jdbcType=CHAR},
+      ORDERDELIVERYFLAG = #{orderdeliveryflag,jdbcType=CHAR},
+      ORDERPICKUPFLAG = #{orderpickupflag,jdbcType=CHAR},
+      ORDERPICKUPDATE = #{orderpickupdate,jdbcType=TIMESTAMP},
+      ORDERDELIVERYDATE = #{orderdeliverydate,jdbcType=TIMESTAMP},
+      ORDERDINEINRECEIVEDDATE = #{orderdineinreceiveddate,jdbcType=TIMESTAMP}
+    where ONO = #{ono,jdbcType=DECIMAL}
+  </update>
+</mapper>

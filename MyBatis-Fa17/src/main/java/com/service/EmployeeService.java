@@ -5,11 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.ibatis.session.SqlSession;
-
 import com.dao.EmployeeDAO;
 import com.domain.Employee;
-import com.util.ConnectionFactory;
 
 public class EmployeeService {
 	
@@ -20,10 +17,8 @@ public class EmployeeService {
 	public List<Employee> getEmpList() {
 		List<Employee> empList = new ArrayList<Employee>();
 		EmployeeDAO empDAO = new EmployeeDAO();
-		empList = empDAO.getEmpList();
-		
-		return empList;
-		
+		empList = empDAO.getEmpList();		
+		return empList;		
 	}
 	
 	public List<Employee> getEmpListBySalary(BigDecimal salary) {

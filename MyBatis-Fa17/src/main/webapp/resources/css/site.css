@@ -1,0 +1,58 @@
+/* bootstrap adjustments **/
+html{
+	
+}
+
+body{
+    margin-right: auto;
+    margin-left: auto;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-repeat: no-repeat;
+    /*
+    background-image: url("../images/Wall-Paper2.jpg");
+    background-size: cover;
+    background-color:#A2AB58; 
+    */
+    
+    padding:20px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.myform .form-control,
+.myform .control-label {
+	margin-top:5px;
+	margin-bottom:5px;
+}
+
+.myform .control-label{
+	text-align:right;
+}
+
+.myform .btn{
+background-color:grey;
+margin-right: 10px;
+color:white;
+text-decoration:none;
+}
+
+.medium-btn{
+	width:100px;
+}
+
+
+.color-tr th{
+	background-colour:grey;
+}
+
+.small-text{
+	width:70px;
+}
+.long-text{
+	width:500px;
+}

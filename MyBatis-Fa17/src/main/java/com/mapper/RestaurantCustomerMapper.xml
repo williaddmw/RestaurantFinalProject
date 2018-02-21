@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.RestaurantCustomerMapper">
+  <resultMap id="BaseResultMap" type="com.domain.RestaurantCustomer">
+    <id column="EMAIL" jdbcType="VARCHAR" property="email" />
+    <result column="FNAME" jdbcType="VARCHAR" property="fname" />
+    <result column="MINIT" jdbcType="CHAR" property="minit" />
+    <result column="LNAME" jdbcType="VARCHAR" property="lname" />
+    <result column="PHONE" jdbcType="VARCHAR" property="phone" />
+    <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
+    <result column="STREETNO" jdbcType="DECIMAL" property="streetno" />
+    <result column="STREETNAME" jdbcType="VARCHAR" property="streetname" />
+    <result column="CITY" jdbcType="VARCHAR" property="city" />
+    <result column="STATE" jdbcType="VARCHAR" property="state" />
+    <result column="ZIP" jdbcType="DECIMAL" property="zip" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    EMAIL, FNAME, MINIT, LNAME, PHONE, PASSWORD, STREETNO, STREETNAME, CITY, STATE, ZIP
+  </sql>
+  <select id="selectByExample" parameterType="com.domain.RestaurantCustomerExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from RESTAURANT_CUSTOMER
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from RESTAURANT_CUSTOMER
+    where EMAIL = #{email,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from RESTAURANT_CUSTOMER
+    where EMAIL = #{email,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.domain.RestaurantCustomer">
+    insert into RESTAURANT_CUSTOMER (EMAIL, FNAME, MINIT, 
+      LNAME, PHONE, PASSWORD, 
+      STREETNO, STREETNAME, CITY, 
+      STATE, ZIP)
+    values (#{email,jdbcType=VARCHAR}, #{fname,jdbcType=VARCHAR}, #{minit,jdbcType=CHAR}, 
+      #{lname,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{streetno,jdbcType=DECIMAL}, #{streetname,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+      #{state,jdbcType=VARCHAR}, #{zip,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.domain.RestaurantCustomer">
+    insert into RESTAURANT_CUSTOMER
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="email != null">
+        EMAIL,
+      </if>
+      <if test="fname != null">
+        FNAME,
+      </if>
+      <if test="minit != null">
+        MINIT,
+      </if>
+      <if test="lname != null">
+        LNAME,
+      </if>
+      <if test="phone != null">
+        PHONE,
+      </if>
+      <if test="password != null">
+        PASSWORD,
+      </if>
+      <if test="streetno != null">
+        STREETNO,
+      </if>
+      <if test="streetname != null">
+        STREETNAME,
+      </if>
+      <if test="city != null">
+        CITY,
+      </if>
+      <if test="state != null">
+        STATE,
+      </if>
+      <if test="zip != null">
+        ZIP,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="fname != null">
+        #{fname,jdbcType=VARCHAR},
+      </if>
+      <if test="minit != null">
+        #{minit,jdbcType=CHAR},
+      </if>
+      <if test="lname != null">
+        #{lname,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="streetno != null">
+        #{streetno,jdbcType=DECIMAL},
+      </if>
+      <if test="streetname != null">
+        #{streetname,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="zip != null">
+        #{zip,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.domain.RestaurantCustomer">
+    update RESTAURANT_CUSTOMER
+    <set>
+      <if test="fname != null">
+        FNAME = #{fname,jdbcType=VARCHAR},
+      </if>
+      <if test="minit != null">
+        MINIT = #{minit,jdbcType=CHAR},
+      </if>
+      <if test="lname != null">
+        LNAME = #{lname,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        PHONE = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        PASSWORD = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="streetno != null">
+        STREETNO = #{streetno,jdbcType=DECIMAL},
+      </if>
+      <if test="streetname != null">
+        STREETNAME = #{streetname,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        CITY = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        STATE = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="zip != null">
+        ZIP = #{zip,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where EMAIL = #{email,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.domain.RestaurantCustomer">
+    update RESTAURANT_CUSTOMER
+    set FNAME = #{fname,jdbcType=VARCHAR},
+      MINIT = #{minit,jdbcType=CHAR},
+      LNAME = #{lname,jdbcType=VARCHAR},
+      PHONE = #{phone,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      STREETNO = #{streetno,jdbcType=DECIMAL},
+      STREETNAME = #{streetname,jdbcType=VARCHAR},
+      CITY = #{city,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=VARCHAR},
+      ZIP = #{zip,jdbcType=DECIMAL}
+    where EMAIL = #{email,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -6,23 +6,24 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-
-import com.domain.Employee;
 import com.util.ConnectionFactory;
 
+import com.domain.Employee;
+
 public class EmployeeDAO {
-	
+
 	public EmployeeDAO() {
 		
 	}
 	public List<Employee> getEmpList() {
+	
 		SqlSession session = 
 				ConnectionFactory.getSqlSessionFactory().openSession();
+		
 		List<Employee> empList = new ArrayList<Employee>();
 		
 		try {
-			empList = session.selectList("com.mapper.CompanyMapper.selectAll");
+			empList = session.selectList("com.mapper.CompanyMapper.selectAllemployees");
 			} finally {
 			  session.close();
 			}
@@ -33,6 +34,7 @@ public class EmployeeDAO {
 	public List<Employee> getEmpListBySalary(BigDecimal salary) {
 		SqlSession session = 
 				ConnectionFactory.getSqlSessionFactory().openSession();
+		
 		List<Employee> empList = new ArrayList<Employee>();
 		
 		try {
